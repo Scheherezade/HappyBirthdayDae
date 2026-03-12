@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+margin:0;
+height:100vh;
+background:#ffd6d6;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+text-align:center;
+}
+
+/* Title */
+
+h1{
+color:#d6003d;
+margin-bottom:5px;
+}
+
+.subtitle{
+color:#444;
+margin-bottom:30px;
+font-size:16px;
+}
+
+/* Gallery */
+
+.gallery{
+width:90%;
+max-width:900px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:25px;
+z-index:2;
+}
+
+.card{
+transition:0.5s;
+text-align:center;
+}
+
+.card img{
+width:200px;
+height:260px;
+object-fit:cover;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.active{
+transform:scale(1.2);
+filter:blur(0);
+}
+
+.side{
+filter:blur(4px) brightness(0.8);
+transform:scale(0.9);
+}
+
+/* message */
+
+.message{
+margin-top:12px;
+font-size:15px;
+color:#333;
+max-width:200px;
+}
+
+/* Floating particles */
+
+.particle{
+position:fixed;
+font-size:22px;
+pointer-events:none;
+animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-120vh);
+opacity:0;
+}
+}
+
+/* Confetti */
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+background:red;
+animation:confettiFall 2s linear forwards;
+}
+
+@keyframes confettiFall{
+0%{
+transform:translateY(-20px) rotate(0deg);
+}
+100%{
+transform:translateY(100vh) rotate(720deg);
+opacity:0;
+}
+}
+
+</style>
+</head>
+<body>
+
+<h1>Happy Birthday 🎂</h1>
+<div class="subtitle">
+Today is all about celebrating you ❤️
+</div>
+
+<div class="gallery">
+
+<div class="card side" id="prev"></div>
+
+<div class="card active" id="current"></div>
+
+<div class="card side" id="next"></div>
+
+</div>
+
+<script>
+
+/* images + messages */
+
+const images=[
+{src:"pic1.jpg",msg:"Happy Birthday! Thank you for bringing happiness into my life."},
+{src:"pic2.jpg",msg:"Every moment with you becomes a beautiful memory."},
+{src:"pic3.jpg",msg:"I’m grateful for your kindness and the joy you bring."},
+{src:"pic4.jpg",msg:"You deserve all the love and happiness today."},
+{src:"pic5.jpg",msg:"Life feels brighter whenever you're around."},
+{src:"pic6.jpg",msg:"Thank you for being someone truly special."},
+{src:"pic7.jpg",msg:"May your birthday be filled with laughter and smiles."},
+{src:"pic8.jpg",msg:"Here’s to more memories and amazing moments ahead."}
+];
+
+let index=0;
+
+const prev=document.getElementById("prev");
+const current=document.getElementById("current");
+const next=document.getElementById("next");
+
+function updateGallery(){
+
+let prevIndex=(index-1+images.length)%images.length;
+let nextIndex=(index+1)%images.length;
+
+prev.innerHTML=`<img src="${images[prevIndex].src}"><div class="message">${images[prevIndex].msg}</div>`;
+current.innerHTML=`<img src="${images[index].src}"><div class="message">${images[index].msg}</div>`;
+next.innerHTML=`<img src="${images[nextIndex].src}"><div class="message">${images[nextIndex].msg}</div>`;
+
+}
+
+updateGallery();
+
+setInterval(()=>{
+
+index=(index+1)%images.length;
+updateGallery();
+
+},4000);
+
+/* Floating balloons / emojis */
+
+const emojis=["🎈","🎉","🎂","✨","💖","🥳"];
+
+function createParticle(){
+
+const p=document.createElement("div");
+p.classList.add("particle");
+
+p.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+p.style.left=Math.random()*100+"vw";
+p.style.bottom="-20px";
+p.style.animationDuration=(6+Math.random()*4)+"s";
+
+document.body.appendChild(p);
+
+setTimeout(()=>p.remove(),10000);
+
+}
+
+setInterval(createParticle,800);
+
+/* Confetti explosion at start */
+
+function startConfetti(){
+
+for(let i=0;i<120;i++){
+
+const c=document.createElement("div");
+
+c.classList.add("confetti");
+
+c.style.left=Math.random()*100+"vw";
+
+const colors=["#ff4d6d","#ffd166","#06d6a0","#118ab2","#ef476f"];
+
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+c.style.animationDuration=(1+Math.random()*1.5)+"s";
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),2000);
+
+}
+
+}
+
+window.onload=startConfetti;
+
+</script>
+
+</body>
+</html>
