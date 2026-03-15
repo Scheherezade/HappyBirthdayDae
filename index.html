@@ -24,16 +24,42 @@ overflow:hidden;
 text-align:center;
 }
 
-/* CURTAIN */
+/* CURTAIN (cloth style) */
 
 .curtain{
 position:fixed;
 top:0;
 width:50%;
 height:100%;
-background:#b3002d;
 z-index:10;
 transition:2s ease;
+
+background:
+repeating-linear-gradient(
+90deg,
+#8b0024,
+#8b0024 40px,
+#a3002c 40px,
+#a3002c 80px
+);
+
+box-shadow:
+inset -10px 0 20px rgba(0,0,0,0.3),
+inset 10px 0 20px rgba(0,0,0,0.3);
+}
+
+.curtain::after{
+content:"";
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:80px;
+
+background:
+radial-gradient(circle at 40px 0px,#8b0024 40px,transparent 41px) repeat-x;
+
+background-size:80px 80px;
 }
 
 .left-curtain{
@@ -149,77 +175,6 @@ opacity:0;
 }
 }
 
-/* CORNER DECORATIONS */
-
-.corner{
-position:fixed;
-font-size:28px;
-opacity:0.8;
-}
-
-.top-left{
-top:10px;
-left:10px;
-}
-
-.top-right{
-top:10px;
-right:10px;
-}
-
-.bottom-left{
-bottom:10px;
-left:10px;
-}
-
-.bottom-right{
-bottom:10px;
-right:10px;
-}
-/* Cake */
-
-.cake{
-position:relative;
-font-size:70px;
-margin-bottom:20px;
-}
-
-.candles{
-position:absolute;
-top:-15px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:8px;
-}
-
-.candle{
-width:6px;
-height:18px;
-background:#fff;
-border-radius:2px;
-position:relative;
-}
-
-.candle::after{
-content:"";
-position:absolute;
-top:-8px;
-left:50%;
-transform:translateX(-50%);
-width:6px;
-height:10px;
-background:orange;
-border-radius:50%;
-animation:flame 0.6s infinite alternate;
-}
-
-@keyframes flame{
-from{transform:translateX(-50%) scale(1);}
-to{transform:translateX(-50%) scale(1.3);}
-}
-
-
 /* Balloons */
 
 .balloon{
@@ -239,7 +194,6 @@ transform:translateY(-120vh);
 opacity:0;
 }
 }
-
 
 /* Heart sparkle trail */
 
@@ -269,24 +223,11 @@ opacity:0;
 <div class="curtain left-curtain" id="curtainLeft"></div>
 <div class="curtain right-curtain" id="curtainRight"></div>
 
-<!-- CORNER DECOR -->
-<div class="corner top-left">🎈🎉✨</div>
-<div class="corner top-right">🎂🥳🎈</div>
-<div class="corner bottom-left">💖🎉✨</div>
-<div class="corner bottom-right">🎂🎈🥳</div>
-
 <h1>Happy Birthday Gorgeous 🎂</h1>
 <div class="subtitle">
 Today is all about celebrating you ❤️
 </div>
-<div class="cake">
-🎂
-<div class="candles">
-<span class="candle"></span>
-<span class="candle"></span>
-<span class="candle"></span>
-</div>
-</div>
+
 <div class="gallery">
 
 <div class="card side" id="prev"></div>
@@ -336,7 +277,7 @@ updateGallery();
 
 },4000);
 
-/* Floating balloons / emojis */
+/* Floating celebration emojis */
 
 const emojis=["🎈","🎉","🎂","✨","💖","🥳"];
 
@@ -399,6 +340,7 @@ startConfetti();
 },1200);
 
 }
+
 /* Balloons rising */
 
 function createBalloon(){
@@ -422,7 +364,6 @@ setTimeout(()=>balloon.remove(),10000);
 
 setInterval(createBalloon,1200);
 
-
 /* Heart sparkle trail */
 
 function createSparkle(x,y){
@@ -443,19 +384,13 @@ setTimeout(()=>s.remove(),1000);
 
 }
 
-/* Mouse */
-
 document.addEventListener("mousemove",(e)=>{
 createSparkle(e.clientX,e.clientY);
 });
 
-/* Touch (for phone) */
-
 document.addEventListener("touchmove",(e)=>{
-
 const touch=e.touches[0];
 createSparkle(touch.clientX,touch.clientY);
-
 });
 
 </script>
