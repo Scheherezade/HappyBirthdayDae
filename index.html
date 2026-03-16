@@ -68,24 +68,56 @@ background-size:80px 80px;
 .open-left{transform:translateX(-100%);}
 .open-right{transform:translateX(100%);}
 
-/* TOP DECORATIVE CURTAINS */
+
+/* TOP DECORATIVE CURTAINS WITH WAVY EDGES */
 
 .top-curtain{
 position:fixed;
-top:-20px;
-width:220px;
-height:130px;
-background:repeating-linear-gradient(
+top:-10px;
+width:260px;
+height:150px;
+
+background:
+repeating-linear-gradient(
 90deg,
 #8b0024,
 #8b0024 20px,
 #a3002c 20px,
 #a3002c 40px
 );
-border-bottom-left-radius:120px;
-border-bottom-right-radius:120px;
-box-shadow:0 10px 20px rgba(0,0,0,0.25);
+
+/* create wavy cloth bottom */
+clip-path: polygon(
+0% 0%,
+100% 0%,
+100% 65%,
+95% 70%,
+90% 65%,
+85% 70%,
+80% 65%,
+75% 70%,
+70% 65%,
+65% 70%,
+60% 65%,
+55% 70%,
+50% 65%,
+45% 70%,
+40% 65%,
+35% 70%,
+30% 65%,
+25% 70%,
+20% 65%,
+15% 70%,
+10% 65%,
+5% 70%,
+0% 65%
+);
+
+box-shadow:0 10px 25px rgba(0,0,0,0.35);
+
 z-index:1;
+
+/* swinging animation */
 animation:swing 4s ease-in-out infinite;
 }
 
@@ -97,6 +129,20 @@ transform-origin:top left;
 .top-right-curtain{
 right:0;
 transform-origin:top right;
+}
+
+/* wind swing */
+
+@keyframes swing{
+0%{
+transform:rotate(0deg);
+}
+50%{
+transform:rotate(3deg);
+}
+100%{
+transform:rotate(0deg);
+}
 }
 
 /* Swing animation */
